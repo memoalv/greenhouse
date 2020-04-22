@@ -22,13 +22,13 @@ class TempHumSensor:
 		tempReadings     = []
 		for i in range(0,5):
 			try:
-				humidity, temperature = Adafruit_DHT.read_retry(tempSensor, tempSensorPin)
+				humidity, temperature = Adafruit_DHT.read_retry(self.tempSensor, self.tempSensorPin)
 				tempReadings.append((temperature, humidity))
 			except:
 				errorsInReadings.append(True)
 
 		if len(errorsInReadings) > 4:
-			emails.sendEmail("Notificación", "Error al obtener las lecturas del sensor DHT22")
+			emails.sendEmail("Notificacion", "Error al obtener las lecturas del sensor DHT22")
 		
 		avgTemp = 0
 		avgHum  = 0
