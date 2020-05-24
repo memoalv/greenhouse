@@ -1,24 +1,19 @@
- 'use strict'
+"use strict"
 
- //Cargar modulos de node para crear server.
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require("express")
+const bodyParser = require("body-parser")
+const routes = require("./routes/index")
+const authMiddleware = require("./middlewares/auth")
 
- //Ejecutar express.
-var app = express();
+const app = express()
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(authMiddleware)
 
- //Cargar ficheros rutas.
- var routes = require('./routes/index')
+//CORS.
 
- //Middlewares.
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+//Aniadir prefijos rutas / Cargar rutas.
+app.use("/", routes)
 
- //CORS.
-
- //Aniadir prefijos rutas / Cargar rutas.
- app.use('/', routes);
-
- //Exportar modulo(fichero actual).
- module.exports = app;
+module.exports = app

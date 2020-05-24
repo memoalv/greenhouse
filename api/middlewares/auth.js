@@ -1,21 +1,11 @@
-'use strict'
+"use strict"
 
-const services = require('../services')
-
-function isAuth(req, res, next){
-    if(!req.headers.authorization) {
-        return res.status(403).send({ message: "No tienes autorizacion para consultar esta ruta" })
-    }
-
-    const token = req.headers.authorization.split(" ")[1];
-    services.decodeToken(token)
-    .then(response => {
-        req.user = response
-        next()
-    })
-    .catch((err) => {
-        res.status(err.status)
-    })
+function authorized(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(403).send()
+  }
+  
+  req.headers.authorization == "59f02390-a2a3-4dc1-b19d-3c37d8933fa0" ? next() : res.status(403)
 }
 
-module.exports = isAuth;
+module.exports = authorized

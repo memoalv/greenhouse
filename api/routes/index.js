@@ -3,6 +3,6 @@
 const express = require('express')
 const router = express.Router();
 
-router.use('/auth', require('./users/auth.routes'));
+router.use('/climate', require('./climate.routes'));
 
 module.exports = router;
