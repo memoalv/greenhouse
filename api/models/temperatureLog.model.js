@@ -12,6 +12,6 @@ const tempLogSchema= new Schema({
     outsideTemp: Number,
     cpuTemp: Number,
     created: Date
-})
+}, { collection: 'tempLog' })
 
 module.exports = mongoose.model('TempLog', tempLogSchema)
