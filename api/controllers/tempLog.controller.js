@@ -6,13 +6,17 @@ const save = (req, res) => {
   const entry = new TempLog(req.body)
 
   entry.save(function (err) {
-    
     if (err) {
-      console.log(err)
-      res.status(500).send({ message: "Could not save new entry into database" })
+      if (err.code == 11000) {
+        return res.status(422).json({ message: err.errmsg })
+      }
+      else {
+        console.error(err)
+        return res.status(500).json({ message: "Could not save new entry into database" })
+      }
     }
 
-    return res.status(200).send({ message: "Entry saved correctly" })
+    return res.status(200).json({ message: "Entry saved correctly" })
   })
 }
 

@@ -6,13 +6,16 @@ const database = "greenhouse"
 var app = require("./app")
 
 process.on('uncaughtException', (error)  => {
-  console.log(error);
+  console.error(error);
 })
 
 process.on('unhandledRejection', (error, promise) => {
-  console.log('Unhandled promise rejection: ', promise);
-  console.log('Error: ', error );
+  console.error('Unhandled promise rejection: ', promise);
+  console.error('Error: ', error );
 });
+
+// silence DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+mongoose.set('useCreateIndex', true)
 
 mongoose
   .connect(`mongodb://localhost:${dbPort}/${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -23,4 +26,4 @@ mongoose
       console.log(`Servidor corriento en el puerto: ${serverPort}`)
     })
   })
-  .catch((e) => console.log(e))
+  .catch((e) => console.error(e))
