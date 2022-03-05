@@ -9,9 +9,10 @@ const tempLogSchema = new Schema(
       type: String,
       unique: true,
     },
-    insideTemp: Number,
-    outsideTemp: Number,
-    cpuTemp: Number,
+    temperature: Number,
+    air_humidity: Number,
+    lux: Number,
+    soil_humidity: Number,
     created: Date,
   },
   { collection: "tempLog" }

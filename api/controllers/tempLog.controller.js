@@ -1,9 +1,24 @@
 "use strict"
 
 const TempLog = require("../models/temperatureLog.model")
+const crypto = require('crypto');
 
 const create = (req, res) => {
-  const entry = new TempLog(req.body)
+  const {
+    temperature,
+    air_humidity,
+    lux,
+    soil_humidity
+  } = req.body;
+
+  const entry = new TempLog({
+    uuid: crypto.randomUUID(),
+    temperature,
+    air_humidity,
+    lux,
+    soil_humidity,
+    created_at: new Date()
+  })
 
   entry.save(function (err) {
     if (err) {
