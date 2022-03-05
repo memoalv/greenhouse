@@ -2,7 +2,7 @@
 
 const TempLog = require("../models/temperatureLog.model")
 
-const save = (req, res) => {
+const create = (req, res) => {
   const entry = new TempLog(req.body)
 
   entry.save(function (err) {
@@ -19,7 +19,7 @@ const save = (req, res) => {
   })
 }
 
-const get = async (req, res) => {
+const index = async (req, res) => {
   try {
     let { startDate, endDate } = req.query
 
@@ -77,7 +77,7 @@ const lastEntry = async (req, res) => {
 }
 
 module.exports = {
-  save,
-  get,
+  create,
+  index,
   lastEntry,
 }
