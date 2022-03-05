@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mongoose = require("mongoose")
 const dbPort = 27017
 const serverPort = 3000

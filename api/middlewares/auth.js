@@ -5,7 +5,7 @@ function authorized(req, res, next) {
     return res.status(403).send()
   }
 
-  if (req.headers.authorization == "59f02390-a2a3-4dc1-b19d-3c37d8933fa0") {
+  if (req.headers.authorization === process.env.AUTH_KEY) {
     next()
   } else {
     return res.status(403).send()
