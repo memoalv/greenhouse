@@ -5,6 +5,7 @@ const crypto = require('crypto');
 
 const create = (req, res) => {
   const {
+    node,
     temperature,
     air_humidity,
     lux,
@@ -13,6 +14,7 @@ const create = (req, res) => {
 
   const entry = new TempLog({
     uuid: crypto.randomUUID(),
+    node,
     temperature,
     air_humidity,
     lux,

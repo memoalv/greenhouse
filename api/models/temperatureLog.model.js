@@ -9,6 +9,7 @@ const tempLogSchema = new Schema(
       type: String,
       unique: true,
     },
+    node: String,
     temperature: Number,
     air_humidity: Number,
     lux: Number,
