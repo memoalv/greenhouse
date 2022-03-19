@@ -14,7 +14,7 @@ const tempLogSchema = new Schema(
     air_humidity: Number,
     lux: Number,
     soil_humidity: Number,
-    created: Date,
+    created_at: Date,
   },
   { collection: "tempLog" }
 )
