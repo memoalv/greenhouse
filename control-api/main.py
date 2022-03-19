@@ -10,9 +10,9 @@ load_dotenv()
 
 class DataPoint(BaseModel):
   node: str
-  temperature: float
-  air_humidity: float
-  lux: float
+  temperature: Optional[float] = None
+  air_humidity: Optional[float] = None
+  lux: Optional[float] = None
   soil_humidity: Optional[float] = None
 
 app = FastAPI()
