@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-import requests as r
-import json
-
-import os
 from dotenv import load_dotenv
 load_dotenv()
+from Logger import Logger
+
 
 class DataPoint(BaseModel):
   node: str
@@ -16,22 +14,14 @@ class DataPoint(BaseModel):
   soil_humidity: Optional[float] = None
 
 app = FastAPI()
+data_logger = Logger()
 
-@app.get("/")
-def index():
-  return "OK"
+@app.get("/ping")
+def pong():
+  return "pong"
 
 @app.post("/log")
 def log_data(data_point: DataPoint):
-  response = r.post(
-    f"{os.getenv('MONITORING_API_URL')}/climate",
-    headers={'Authorization': os.getenv('AUTH_KEY') },
-    json=json.loads(data_point.json())
-  )
+  data_logger.write(data_point)
 
-  if response:
-    print('post success')
-  else: 
-    print('An error has occurred.')
-
-  return "Success"
+  return "Data saved correctly"
