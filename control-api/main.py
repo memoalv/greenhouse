@@ -1,20 +1,12 @@
-from fastapi import FastAPI
-from typing import Optional
-from pydantic import BaseModel
 from dotenv import load_dotenv
 load_dotenv()
-from Logger import Logger
 
-
-class DataPoint(BaseModel):
-  node: str
-  temperature: Optional[float] = None
-  air_humidity: Optional[float] = None
-  lux: Optional[float] = None
-  soil_humidity: Optional[float] = None
+from fastapi import FastAPI
+from DataPoint import DataPoint
+from NovaLogger import NovaLogger
 
 app = FastAPI()
-data_logger = Logger()
+nova_logger = NovaLogger()
 
 @app.get("/ping")
 def pong():
@@ -22,6 +14,6 @@ def pong():
 
 @app.post("/log")
 def log_data(data_point: DataPoint):
-  data_logger.write(data_point)
+  nova_logger.send_to_influx(data_point)
 
-  return "Data saved correctly"
+  return "Data sent correctly"
