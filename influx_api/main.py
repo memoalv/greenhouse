@@ -1,10 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Response
 from typing import Optional
 from pydantic import BaseModel
 from dotenv import load_dotenv
+import os
 load_dotenv()
 from Logger import Logger
-
 
 class DataPoint(BaseModel):
   node: str
@@ -15,6 +15,15 @@ class DataPoint(BaseModel):
 
 app = FastAPI()
 data_logger = Logger()
+
+@app.middleware("http")
+async def authorize_request(request: Request, call_next):
+    auth_token = request.headers['Authorization']
+    if auth_token != os.getenv('API_KEY'):
+      return Response(status_code=401)
+
+    return await call_next(request)
+    
 
 @app.get("/ping")
 def pong():
