@@ -18,13 +18,12 @@ data_logger = Logger()
 
 @app.middleware("http")
 async def authorize_request(request: Request, call_next):
-    auth_token = request.headers['Authorization']
-    if auth_token != os.getenv('API_KEY'):
-      return Response(status_code=401)
+  auth_token = request.headers['Authorization']
+  if auth_token != os.getenv('API_KEY'):
+    return Response(status_code=401)
 
-    return await call_next(request)
-    
-
+  return await call_next(request)
+  
 @app.get("/ping")
 def pong():
   return "pong"
