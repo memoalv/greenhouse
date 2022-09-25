@@ -5,7 +5,6 @@ class NovaLogger:
   __device_key = os.getenv('NOVA_DEVICE_KEY')
 
   def __init__(self):
-    print(self.__device_key)
     self.hologram = HologramCloud({'devicekey': self.__device_key}, network='cellular')
 
   def send_to_influx(self, given_data_point):
